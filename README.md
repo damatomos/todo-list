@@ -7,3 +7,10 @@ Curso de java para criação de um Gerenciador de Tarefas com spring e spring bo
 - Criação do Controller de User
 - Criação do Model de User
 
+## Day 02
+- Configuração do Project Lombok para auto generate de Getters and Setters
+- Configuração do Spring Data JPA para uso do ORM Hibernate integrado ao Spring
+- Configuração do MySQL Connector Java para uso do MySQL Database (Author)
+- Configuração da entidade User com uso de UUID e auto generate
+- Configuração de Interface do Repository com JPA
+- Validação e criação de usuários no banco de dados.
