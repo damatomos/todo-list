@@ -14,3 +14,12 @@ Curso de java para criação de um Gerenciador de Tarefas com spring e spring bo
 - Configuração da entidade User com uso de UUID e auto generate
 - Configuração de Interface do Repository com JPA
 - Validação e criação de usuários no banco de dados.
+
+## Day 03
+- Reparo na biblioteca do MySQL (Author)
+- Criptografia da senha do usuário com BCrypt
+- Criação da entidade Task
+- Criação do Repository da entidade Task
+- Criação do Controller da entidade Task
+- Criação de um middleware através das classes Filter do spring
+- Validação do usuário na filtragem
