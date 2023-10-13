@@ -23,3 +23,9 @@ Curso de java para criação de um Gerenciador de Tarefas com spring e spring bo
 - Criação do Controller da entidade Task
 - Criação de um middleware através das classes Filter do spring
 - Validação do usuário na filtragem
+
+## Day 04
+- Mudança na criação de tasks a partir da autenticação do usuário
+- Listagem de Tasks
+- Atualização de Tasks
+- Utils para mesclagem de objectos
