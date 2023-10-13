@@ -29,3 +29,15 @@ Curso de java para criação de um Gerenciador de Tarefas com spring e spring bo
 - Listagem de Tasks
 - Atualização de Tasks
 - Utils para mesclagem de objectos
+
+## Day 05
+- Validação na atualização de tasks, garantindo que o usuário dono seja o único com essa funcionalidade.
+- Atualização do código enquanto roda a aplicação através do spring-boot-devtools
+- Modelos de execução da aplicação (Através do VSCode e do CLI do maven)
+- Criação do Dockerfile para Deploy
+- Deploy no render.com
+
+##--- Running the project---
+```
+  mvn spring-boot:run
+```
