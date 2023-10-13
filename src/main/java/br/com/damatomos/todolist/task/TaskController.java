@@ -21,27 +21,24 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
-  
+
   @Autowired
   private ITaskRepository taskRepository;
 
   @PostMapping("/")
-  public ResponseEntity create(@RequestBody TaskModel task, HttpServletRequest request)
-  {
+  public ResponseEntity create(@RequestBody TaskModel task, HttpServletRequest request) {
     UUID userID = (UUID) request.getAttribute("userId");
     task.setUserID(userID);
     System.out.println("UserID: " + userID);
     var currentDate = LocalDateTime.now();
-    if (currentDate.isAfter(task.getStartAt()) || currentDate.isAfter(task.getEndAt()))
-    {
+    if (currentDate.isAfter(task.getStartAt()) || currentDate.isAfter(task.getEndAt())) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-             .body("A data de início / término deve ser maior que a data atual.");
+          .body("A data de início / término deve ser maior que a data atual.");
     }
 
-    if (task.getStartAt().isAfter(task.getEndAt()))
-    {
+    if (task.getStartAt().isAfter(task.getEndAt())) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-             .body("A data de início deve ser menor que a data de término.");
+          .body("A data de início deve ser menor que a data de término.");
     }
 
     var taskData = this.taskRepository.save(task);
@@ -49,20 +46,32 @@ public class TaskController {
   }
 
   @GetMapping("/")
-  public List<TaskModel> find(HttpServletRequest request)
-  {
+  public List<TaskModel> find(HttpServletRequest request) {
     UUID userID = (UUID) request.getAttribute("userId");
     return this.taskRepository.findByUserID(userID);
   }
 
   @PutMapping("/{id}")
-  public TaskModel update(@RequestBody TaskModel task, @PathVariable UUID id, HttpServletRequest request)
-  {
+  public ResponseEntity update(@RequestBody TaskModel task, @PathVariable UUID id, HttpServletRequest request) {
     var currentTask = this.taskRepository.findById(id).orElse(null);
+
+    if (currentTask == null)
+    {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .body("Tarefa não encontrada.");
+    }
+
+    var userID = request.getAttribute("userID");
+    if (!task.getUserID().equals(userID)) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+          .body("O usuário não tem permissão para alterar a tarefa.");
+    }
 
     Utils.copyNonNullProperties(task, currentTask);
 
-    return this.taskRepository.save(task);
+    var taskData = this.taskRepository.save(task);
+
+    return ResponseEntity.ok().body(taskData);
   }
 
 }
